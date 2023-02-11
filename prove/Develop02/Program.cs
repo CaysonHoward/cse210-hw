@@ -11,7 +11,6 @@ class Program
         saveFile save = new saveFile();
         WriteEntry userEntry = new WriteEntry();
         loadFile fileload = new loadFile();
-
         List<string> entry = new List<string> { };
 
         while (UserChoice != 5)
@@ -142,7 +141,6 @@ class loadFile
     List<string> entries = new List<string> { };
     public List<string> load(string name)
     {
-
         string filename = name;
         string[] lines = System.IO.File.ReadAllLines(filename);
 
