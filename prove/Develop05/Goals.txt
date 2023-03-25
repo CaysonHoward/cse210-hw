@@ -1,0 +1,6 @@
+Start:
+dont die
+100
+0
+1
+0
