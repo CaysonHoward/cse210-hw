@@ -62,11 +62,9 @@ class MenuHolder{
     public int ProfileMenu(){
         Console.WriteLine("Welcome to your profile");
         Console.WriteLine("What would you like to do?");
-        Console.WriteLine("1");
-        Console.WriteLine("");
-        Console.WriteLine("");
-        Console.WriteLine("");
-        Console.WriteLine("");
+        Console.WriteLine("1. View Total hours studied");
+        Console.WriteLine("2. View Info");
+        Console.WriteLine("3. Return");
 
         Console.Write(">");
         //Insert error cheacking mecanics. Make sure that the input can accent letters without crashing and
