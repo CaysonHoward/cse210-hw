@@ -7,75 +7,107 @@ class Program
         //Declare and create
         MenuHolder menus = new MenuHolder();
         StudySession study = new StudySession();
+        ClassCreator createclass = new ClassCreator();
+        List<SchoolClass> classes = new List<SchoolClass>();
+        ProgramSaver save = new ProgramSaver();
+        ProgramLoader load = new ProgramLoader();
+        Profile user = load.loadUser();
 
-        //Set/initalize variable and program
 
+        //Set and initalize variables and classes
+        classes = load.loadData();
         //Begin program running
         int UserMenuChoice = 1;
-        while (UserMenuChoice != 5)
+        Console.WriteLine("Welcome to the student study tracking app!");
+        while (UserMenuChoice != 4)
         {
             UserMenuChoice = menus.MainMenu();
             if (UserMenuChoice == 1)
             {
-                UserMenuChoice = menus.StudySessionMenu();
-                if (UserMenuChoice == 1)
+                int StudyMenuChoice = menus.StudySessionMenu();
+                if (StudyMenuChoice == 1)
                 {
-                    study.StudyTime();
+                    study.StudyTime(classes, user);
                 }
-                if (UserMenuChoice == 2)
+                if (StudyMenuChoice == 2)
                 {
-                    //View Past Study Sessions
-                }
-                if (UserMenuChoice == 3)
-                {
-                    //View total hours
+                    foreach (SchoolClass c in classes)
+                    {
+                        c.timeStudied();
+                    }
                 }
             }
             if (UserMenuChoice == 2)
             {
-                UserMenuChoice = menus.SchedualMenu();
-                if (UserMenuChoice == 1)
+                int ClassMenuChoice = menus.ClassMenu();
+                if (ClassMenuChoice == 1)
                 {
-                    //View Weekly Schedual
+                    foreach (SchoolClass c in classes)
+                    {
+                        c.displayInfo();
+                    }
                 }
-                if (UserMenuChoice == 2)
+                if (ClassMenuChoice == 2)
                 {
-                    //View Past Weeks
+                    classes.Add(createclass.createSchoolClass());
+                }
+                if (ClassMenuChoice == 3)
+                {
+                    int classnum = 1;
+                    foreach (SchoolClass c in classes)
+                    {
+                        Console.Write($"{classnum}. ");
+                        c.displayInfo();
+                        classnum += 1;
+                    }
+                    Console.WriteLine("Please enter the number of the class you wish to remove or 0 to exit");
+                    Console.Write(">");
+                    int delclass = int.Parse(Console.ReadLine());
+                    if (delclass != 0)
+                    {
+                        classes.RemoveAt(delclass - 1);
+                    }
+                }
+                if (ClassMenuChoice == 4)
+                {
+                    int classnum = 1;
+                    foreach (SchoolClass c in classes)
+                    {
+                        Console.Write($"{classnum}. ");
+                        c.displayInfo();
+                        classnum += 1;
+                    }
+                    Console.WriteLine("Please enter the number of the class you wish to modify");
+                    Console.Write(">");
+                    int modclass = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Press 1 to modify the name, and two to modify credits.");
+                    Console.Write(">");
+                    int cngclass = int.Parse(Console.ReadLine());
+
+                    if (cngclass == 1)
+                    {
+                        classes[modclass - 1].ChangeName();
+                    }
+                    if (cngclass == 2)
+                    {
+                        classes[modclass - 1].ChangeName();
+                    }
                 }
             }
             if (UserMenuChoice == 3)
             {
-                UserMenuChoice = menus.ClassMenu();
-                if (UserMenuChoice == 1)
+                int ProfileMenuChoice = menus.ProfileMenu();
+                if (ProfileMenuChoice == 1)
                 {
-                    //View Classes
+                    user.timeStudied();
                 }
-                if (UserMenuChoice == 2)
+                if (ProfileMenuChoice == 2)
                 {
-                    //Add Classes
-                }
-                if (UserMenuChoice == 3)
-                {
-                    //Remove Class
-                }
-                if (UserMenuChoice == 4)
-                {
-                    //Modify Class
+                    user.ChangeName();
                 }
             }
-            if (UserMenuChoice == 4)
-            {
-                UserMenuChoice = menus.ClassMenu();
-                if (UserMenuChoice == 1)
-                {
-                    //View total hours studied
-                }
-                if (UserMenuChoice == 2)
-                {
-                    //View Profile info
-                }
-            }
-            
+            save.SaveData(classes);
+            save.SaveProfile(user);
         }
     }
 }

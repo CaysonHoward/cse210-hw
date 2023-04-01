@@ -70,7 +70,7 @@ class ProgramLoader
     }
     public UserProfile loadUser()
     {
-        string userfile = "Nevermind/UserInfo.txt";
+        string userfile = "UserInfo.txt";
         if (!File.Exists(userfile))
         {
 
