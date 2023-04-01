@@ -1,0 +1,1 @@
+To run this program any computer that can run a console based C# application will be able to use it.
